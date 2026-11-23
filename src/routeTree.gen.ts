@@ -10,33 +10,128 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AgendamentosRouteImport } from './routes/agendamentos'
+import { Route as CadastroRouteImport } from './routes/cadastro'
+import { Route as ConfiguracoesRouteImport } from './routes/configuracoes'
+import { Route as EntrarRouteImport } from './routes/entrar'
+import { Route as PainelRouteImport } from './routes/painel'
+import { Route as PerfilRouteImport } from './routes/perfil'
+import { Route as PlanosRouteImport } from './routes/planos'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AgendamentosRoute = AgendamentosRouteImport.update({
+  id: '/agendamentos',
+  path: '/agendamentos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CadastroRoute = CadastroRouteImport.update({
+  id: '/cadastro',
+  path: '/cadastro',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConfiguracoesRoute = ConfiguracoesRouteImport.update({
+  id: '/configuracoes',
+  path: '/configuracoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EntrarRoute = EntrarRouteImport.update({
+  id: '/entrar',
+  path: '/entrar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PainelRoute = PainelRouteImport.update({
+  id: '/painel',
+  path: '/painel',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PerfilRoute = PerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlanosRoute = PlanosRouteImport.update({
+  id: '/planos',
+  path: '/planos',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/agendamentos': typeof AgendamentosRoute
+  '/cadastro': typeof CadastroRoute
+  '/configuracoes': typeof ConfiguracoesRoute
+  '/entrar': typeof EntrarRoute
+  '/painel': typeof PainelRoute
+  '/perfil': typeof PerfilRoute
+  '/planos': typeof PlanosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/agendamentos': typeof AgendamentosRoute
+  '/cadastro': typeof CadastroRoute
+  '/configuracoes': typeof ConfiguracoesRoute
+  '/entrar': typeof EntrarRoute
+  '/painel': typeof PainelRoute
+  '/perfil': typeof PerfilRoute
+  '/planos': typeof PlanosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/agendamentos': typeof AgendamentosRoute
+  '/cadastro': typeof CadastroRoute
+  '/configuracoes': typeof ConfiguracoesRoute
+  '/entrar': typeof EntrarRoute
+  '/painel': typeof PainelRoute
+  '/perfil': typeof PerfilRoute
+  '/planos': typeof PlanosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/agendamentos'
+    | '/cadastro'
+    | '/configuracoes'
+    | '/entrar'
+    | '/painel'
+    | '/perfil'
+    | '/planos'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/agendamentos'
+    | '/cadastro'
+    | '/configuracoes'
+    | '/entrar'
+    | '/painel'
+    | '/perfil'
+    | '/planos'
+  id:
+    | '__root__'
+    | '/'
+    | '/agendamentos'
+    | '/cadastro'
+    | '/configuracoes'
+    | '/entrar'
+    | '/painel'
+    | '/perfil'
+    | '/planos'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AgendamentosRoute: typeof AgendamentosRoute
+  CadastroRoute: typeof CadastroRoute
+  ConfiguracoesRoute: typeof ConfiguracoesRoute
+  EntrarRoute: typeof EntrarRoute
+  PainelRoute: typeof PainelRoute
+  PerfilRoute: typeof PerfilRoute
+  PlanosRoute: typeof PlanosRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +143,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/agendamentos': {
+      id: '/agendamentos'
+      path: '/agendamentos'
+      fullPath: '/agendamentos'
+      preLoaderRoute: typeof AgendamentosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cadastro': {
+      id: '/cadastro'
+      path: '/cadastro'
+      fullPath: '/cadastro'
+      preLoaderRoute: typeof CadastroRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/configuracoes': {
+      id: '/configuracoes'
+      path: '/configuracoes'
+      fullPath: '/configuracoes'
+      preLoaderRoute: typeof ConfiguracoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/entrar': {
+      id: '/entrar'
+      path: '/entrar'
+      fullPath: '/entrar'
+      preLoaderRoute: typeof EntrarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/painel': {
+      id: '/painel'
+      path: '/painel'
+      fullPath: '/painel'
+      preLoaderRoute: typeof PainelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/perfil': {
+      id: '/perfil'
+      path: '/perfil'
+      fullPath: '/perfil'
+      preLoaderRoute: typeof PerfilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/planos': {
+      id: '/planos'
+      path: '/planos'
+      fullPath: '/planos'
+      preLoaderRoute: typeof PlanosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AgendamentosRoute: AgendamentosRoute,
+  CadastroRoute: CadastroRoute,
+  ConfiguracoesRoute: ConfiguracoesRoute,
+  EntrarRoute: EntrarRoute,
+  PainelRoute: PainelRoute,
+  PerfilRoute: PerfilRoute,
+  PlanosRoute: PlanosRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
