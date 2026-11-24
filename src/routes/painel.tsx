@@ -4,8 +4,9 @@ import { useState } from "react";
 import { AppShell } from "@/components/fem/AppShell";
 import { PhoneMock } from "@/components/fem/PhoneMock";
 import { StatusBadge } from "@/components/fem/StatusBadge";
-import { appointments, brl, pro } from "@/lib/fem-data";
-import portrait from "@/assets/pro-portrait.jpg";
+import { brl } from "@/lib/fem-data";
+import { useAccount } from "@/lib/account/useAccount";
+import { Avatar } from "@/components/fem/Avatar";
 
 export const Route = createFileRoute("/painel")({
   head: () => ({ meta: [{ title: "Painel — Fempro" }, { name: "description", content: "Resumo da sua agenda, link e crescimento do seu negócio." }, { property: "og:title", content: "Painel — Fempro" }, { property: "og:description", content: "Resumo da sua agenda, link e crescimento do seu negócio." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
@@ -14,17 +15,18 @@ export const Route = createFileRoute("/painel")({
 
 function Painel() {
   const [copied, setCopied] = useState(false);
+  const { profile: pro, appointments, stats: st } = useAccount();
   const today = appointments.filter((a) => a.date === "Hoje");
   const stats = [
-    { icon: CalendarDays, v: "312", l: "Cliques no link", d: "12%" },
-    { icon: CalendarCheck, v: "48", l: "Agendamentos no mês", d: "33%" },
-    { icon: Users, v: "1.246", l: "Visualizações", d: "18%" },
-    { icon: Star, v: "4,9", l: "Avaliação média" },
+    { icon: CalendarDays, v: st.clicks.toLocaleString("pt-BR"), l: "Cliques no link", d: st.clicks ? "12%" : undefined },
+    { icon: CalendarCheck, v: st.bookings.toLocaleString("pt-BR"), l: "Agendamentos no mês", d: st.bookings ? "33%" : undefined },
+    { icon: Users, v: st.views.toLocaleString("pt-BR"), l: "Visualizações", d: st.views ? "18%" : undefined },
+    { icon: Star, v: pro.rating ? pro.rating.toLocaleString("pt-BR") : "—", l: "Avaliação média" },
   ];
   return (
     <AppShell>
       <Link to="/perfil" className="flex items-center gap-4">
-        <img src={portrait} alt="" className="h-16 w-16 rounded-full object-cover object-top" />
+        <Avatar name={pro.name} photo={pro.photo} />
         <div className="flex-1"><p className="font-display text-2xl font-bold">{pro.name}</p><p className="text-muted-foreground">{pro.role}</p></div>
         <ChevronRight className="h-5 w-5 text-muted-foreground" />
       </Link>
@@ -43,7 +45,7 @@ function Painel() {
           <p className="mt-2 font-display text-4xl font-extrabold">{brl(today.reduce((s, a) => s + a.price, 0))}</p>
           <p className="mt-1 text-sm text-muted-foreground">{today.length} atendimentos agendados</p>
           <div className="mt-6 flex h-20 items-end gap-2">
-            {[40, 65, 50, 80, 70, 95, 60].map((v, i) => <div key={i} className={`flex-1 rounded-lg ${i === 5 ? "bg-primary" : "bg-accent"}`} style={{ height: v + "%" }} />)}
+            {(today.length ? [40, 65, 50, 80, 70, 95, 60] : [4, 4, 4, 4, 4, 4, 4]).map((v, i) => <div key={i} className={`flex-1 rounded-lg ${i === 5 ? "bg-primary" : "bg-accent"}`} style={{ height: v + "%" }} />)}
           </div>
           <div className="mt-2 flex justify-between text-[11px] text-muted-foreground">{["S", "T", "Q", "Q", "S", "S", "D"].map((d, i) => <span key={i} className="flex-1 text-center">{d}</span>)}</div>
         </div>
@@ -65,6 +67,7 @@ function Painel() {
 
       <div className="mt-9 flex items-center justify-between"><h2 className="text-xl font-bold">Próximos de hoje</h2><Link to="/agendamentos" className="text-sm font-bold text-primary">Ver agenda</Link></div>
       <div className="mt-4 divide-y divide-border overflow-hidden rounded-[1.4rem] border border-border bg-card">
+        {today.length === 0 && <div className="p-8 text-center"><p className="font-bold">Nenhum horário hoje</p><p className="mt-1 text-sm text-muted-foreground">Compartilhe seu link para receber os primeiros agendamentos.</p></div>}
         {today.map((a) => (
           <div key={a.id} className="flex items-center gap-4 p-4">
             <div className="w-14 text-center"><p className="font-display text-lg font-bold">{a.time}</p></div>

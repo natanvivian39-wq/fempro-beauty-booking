@@ -3,7 +3,8 @@ import { Clock, MessageCircle, Plus } from "lucide-react";
 import { useState } from "react";
 import { AppShell } from "@/components/fem/AppShell";
 import { StatusBadge } from "@/components/fem/StatusBadge";
-import { appointments, brl } from "@/lib/fem-data";
+import { brl } from "@/lib/fem-data";
+import { useAccount } from "@/lib/account/useAccount";
 
 export const Route = createFileRoute("/agendamentos")({
   head: () => ({ meta: [{ title: "Agendamentos — Fempro" }, { name: "description", content: "Veja e gerencie os horários marcados pelas suas clientes." }, { property: "og:title", content: "Agendamentos — Fempro" }, { property: "og:description", content: "Veja e gerencie os horários marcados pelas suas clientes." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
@@ -15,6 +16,7 @@ const days = Array.from({ length: 7 }, (_, i) => { const d = new Date(); d.setDa
 
 function Agenda() {
   const [tab, setTab] = useState<(typeof tabs)[number]>("Hoje");
+  const { appointments } = useAccount();
   const list = appointments.filter((a) => a.date === tab);
   return (
     <AppShell>

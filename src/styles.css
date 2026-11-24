@@ -169,3 +169,10 @@
 }
 @keyframes float-y { 0%,100% { transform: translateY(0) rotate(var(--r,0deg)); } 50% { transform: translateY(-10px) rotate(var(--r,0deg)); } }
 @utility animate-float { animation: float-y 6s ease-in-out infinite; }
+
+/* Hide the platform badge widget entirely (container, text and close button). */
+#lovable-badge {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}

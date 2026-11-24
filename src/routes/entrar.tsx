@@ -1,4 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { setAccount } from "@/lib/account/useAccount";
 import { AuthLayout, Field } from "@/components/fem/AuthLayout";
 
 export const Route = createFileRoute("/entrar")({
@@ -10,11 +11,12 @@ function Entrar() {
   const nav = useNavigate();
   return (
     <AuthLayout title="Bem-vinda de volta" sub="Entre para ver sua agenda de hoje.">
-      <form onSubmit={(e) => { e.preventDefault(); nav({ to: "/painel" }); }} className="space-y-4">
+      <form onSubmit={(e) => { e.preventDefault(); setAccount("empty"); nav({ to: "/painel" }); }} className="space-y-4">
         <Field label="E-mail" type="email" placeholder="voce@email.com" />
         <Field label="Senha" type="password" placeholder="••••••••" />
         <button className="btn-pink w-full py-3.5">Entrar</button>
       </form>
+      <button type="button" onClick={() => { setAccount("demo"); nav({ to: "/painel" }); }} className="btn-ghost-soft mt-3 w-full py-3.5">Ver conta de demonstração</button>
       <p className="mt-6 text-center text-sm text-muted-foreground">Ainda não tem conta? <Link to="/cadastro" className="font-bold text-primary">Criar grátis</Link></p>
     </AuthLayout>
   );

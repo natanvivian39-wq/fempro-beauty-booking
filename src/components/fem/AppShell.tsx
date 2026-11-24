@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Bell, CalendarDays, Crown, Home, Settings, User } from "lucide-react";
 import type { ReactNode } from "react";
 import { Logo } from "./Logo";
+import { setAccount, useAccount } from "@/lib/account/useAccount";
 
 const nav = [
   { to: "/painel", label: "Início", icon: Home },
@@ -11,6 +12,8 @@ const nav = [
 ] as const;
 
 export function AppShell({ children }: { children: ReactNode }) {
+  const account = useAccount();
+  const first = account.profile.name.split(" ")[0];
   return (
     <div className="min-h-screen bg-background lg:flex">
       <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col border-r border-border bg-card px-5 py-7 lg:flex">
@@ -31,11 +34,18 @@ export function AppShell({ children }: { children: ReactNode }) {
       <div className="flex-1 pb-24 lg:pb-10">
         <header className="sticky top-0 z-20 flex items-center justify-between border-b border-border/60 bg-background/85 px-5 py-4 backdrop-blur lg:px-10">
           <div className="lg:hidden"><Logo className="h-6" /></div>
-          <p className="hidden text-sm text-muted-foreground lg:block">Olá, <span className="font-bold text-foreground">Ana</span> 👋</p>
+          <p className="hidden text-sm text-muted-foreground lg:block">Olá, <span className="font-bold text-foreground">{first}</span> 👋</p>
+          <div className="flex items-center gap-2">
+          <div className="flex rounded-full bg-muted p-1 text-xs font-bold" role="group" aria-label="Conta">
+            {(["empty", "demo"] as const).map((k) => (
+              <button key={k} onClick={() => setAccount(k)} className={`rounded-full px-3 py-1.5 ${account.kind === k ? "bg-card shadow-soft" : "text-muted-foreground"}`}>{k === "demo" ? "Demonstração" : "Minha conta"}</button>
+            ))}
+          </div>
           <button aria-label="Notificações" className="relative grid h-10 w-10 place-items-center rounded-full hover:bg-muted">
             <Bell className="h-5 w-5" />
             <span className="absolute right-2 top-2 h-2.5 w-2.5 rounded-full bg-primary ring-2 ring-background" />
           </button>
+          </div>
         </header>
         <main className="mx-auto max-w-5xl px-5 py-6 lg:px-10">{children}</main>
       </div>

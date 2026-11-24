@@ -1,3 +1,4 @@
+import { setAccount } from "@/lib/account/useAccount";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { AuthLayout, Field } from "@/components/fem/AuthLayout";
@@ -32,7 +33,7 @@ function Cadastro() {
               </button>
             ))}
           </div>
-          <button onClick={() => nav({ to: "/painel" })} className="btn-pink mt-6 w-full py-3.5">Criar minha página</button>
+          <button onClick={() => { setAccount("empty"); nav({ to: "/painel" }); }} className="btn-pink mt-6 w-full py-3.5">Criar minha página</button>
         </div>
       )}
       <p className="mt-6 text-center text-sm text-muted-foreground">Já tem conta? <Link to="/entrar" className="font-bold text-primary">Entrar</Link></p>
