@@ -1,0 +1,1 @@
+document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.service-choice,.time-choice').forEach(label=>{label.addEventListener('click',()=>{const group=label.querySelector('input')?.name;document.querySelectorAll('input[name="'+group+'"]').forEach(input=>input.closest('label')?.classList.remove('selected'));label.classList.add('selected')})})});
