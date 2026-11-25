@@ -6,8 +6,8 @@ A aplicação PHP está isolada em `/php`; a versão React/TypeScript original p
 1. Tenha PHP 8.1+ e MySQL/MariaDB com PDO MySQL habilitado.
 2. Execute `php/schema.sql` no MySQL.
 3. Copie `php/config.example.php` para `php/config.php` e preencha as credenciais.
-4. Na raiz do repositório execute `php -S localhost:8000 -t php`.
-5. Abra `http://localhost:8000`.
+4. Na raiz do repositório execute `php -S localhost:8000` (sem `-t php`, pois as imagens aprovadas permanecem em `src/assets`).
+5. Abra `http://localhost:8000/php/`.
 
 ## Telas portadas
 - Landing page: `index.php`
